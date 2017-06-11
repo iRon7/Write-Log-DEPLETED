@@ -1,123 +1,207 @@
-2017-05-31  Write-Log (version: 01.00.02, PowerShell version: 5.1.14393.1198)
-13:00:49.00 C:\Users\User\PowerShell\Write-Log\Write-Log.ps1 
-13:00:49.71 Examples:
-13:00:49.72 Not set (null): $Null
-13:00:49.72 Empty string:
-13:00:49.73 If you want to quote a bare string, consider using CText: ""
-13:00:49.74 An empty array: @()
-13:00:49.74 An empty array embedded in another array: @() Note that PowerShell (and not Write-Log) flattens this.
-13:00:49.75 Two empty arrays embedded in another array: @(@(), @())
-13:00:49.76 An null in an empty array: @($Null)
-13:00:49.77 A hashtable: @{one = 1, three = 3, two = 2}
-13:00:49.78 A recursive hashtable: @{
-				one = @{
-					one = @{
-						one = 1, 
-						three = 3, 
-						two = 2
-					}, 
-					three = 3, 
-					two = 2
-				}, 
-				three = 3, 
-				two = 2
-			}
-13:00:49.79 The array @("One", "Two", "Three") is stored in $Numbers
-13:00:49.80 A hashtable in an array: @(@{one = 1, three = 3, two = 2})
-13:00:49.81 Character array: @(H, a, l, l, o,  , W, o, r, l, d)
-13:00:51.66 WinNT user object: {UserFlags: 66049, MaxStorage: -1, PasswordAge: 245487, PasswordExpired: 0, LoginHours: System.Byte[], FullName: John Doe, Description: , BadPasswordAttempts: 0, HomeDirectory: , LoginScript: , Profile: , HomeDirDrive: , Parameters: , PrimaryGroupID: 513, Name: DoeJ, MinPasswordLength: 0, MaxPasswordAge: 3628800, MinPasswordAge: 0, PasswordHistoryLength: 0, AutoUnlockInterval: 1800, LockoutObservationInterval: 1800, MaxBadPasswordsAllowed: 0, objectSid: System.Byte[], AuthenticationType: Secure, Children: @{}, Guid: "{D83F1060-1E71-11CF-B1F3-02608C9E7553}", ObjectSecurity: $Null, NativeGuid: "{D83F1060-1E71-11CF-B1F3-02608C9E7553}", NativeObject: {}, Parent: "WinNT://WORKGROUP/.", Password: $Null, Path: "WinNT://./doej", Properties: @{UserFlags = 66049, MaxStorage = -1, PasswordAge = 245487, PasswordExpired = 0, LoginHours = System.Byte[], FullName = John Doe, Description = , BadPasswordAttempts = 0, HomeDirectory = , LoginScript = , Profile = , HomeDirDrive = , Parameters = , PrimaryGroupID = 513, Name = doej, MinPasswordLength = 0, MaxPasswordAge = 3628800, MinPasswordAge = 0, PasswordHistoryLength = 0, AutoUnlockInterval = 1800, LockoutObservationInterval = 1800, MaxBadPasswordsAllowed = 0, objectSid = System.Byte[]}, SchemaClassName: "User", SchemaEntry: {AuthenticationType: $Null, Children: $Null, Guid: $Null, ObjectSecurity: $Null, Name: $Null, NativeGuid: $Null, NativeObject: $Null, Parent: $Null, Password: $Null, Path: $Null, Properties: $Null, SchemaClassName: $Null, SchemaEntry: $Null, UsePropertyCache: $Null, Username: $Null, Options: $Null, Site: $Null, Container: $Null}, UsePropertyCache: $True, Username: $Null, Options: $Null, Site: $Null, Container: $Null}
-13:00:51.70 Volatile Environment: {
-				Property: @(
-					"LOGONSERVER", 
-					"USERDOMAIN", 
-					"USERNAME", 
-					"USERPROFILE", 
-					"HOMEPATH", 
-					"HOMEDRIVE", 
-					"APPDATA", 
-					"LOCALAPPDATA", 
-					"USERDOMAIN_ROAMINGPROFILE"
-				), 
-				PSPath: "Microsoft.PowerShell.Core\Registry::HKEY_CURRENT_USER\Volatile Environment", 
-				PSParentPath: "Microsoft.PowerShell.Core\Registry::HKEY_CURRENT_USER", 
-				PSChildName: "Volatile Environment", 
-				PSDrive: {
-					Used: $Null, 
-					Free: $Null, 
-					CurrentLocation: "", 
-					Name: "HKCU", 
-					Provider: [ProviderInfo]..., 
-					Root: "HKEY_CURRENT_USER", 
-					Description: "The software settings for the current user", 
-					MaximumSize: $Null, 
-					Credential: [PSCredential]..., 
-					DisplayRoot: $Null
-				}, 
-				PSProvider: {
-					ImplementingType: [RuntimeType]..., 
-					HelpFile: "System.Management.Automation.dll-Help.xml", 
-					Name: "Registry", 
-					PSSnapIn: [PSSnapInInfo]..., 
-					ModuleName: "Microsoft.PowerShell.Core", 
-					Module: $Null, 
-					Description: "", 
-					Capabilities: ShouldProcess, Transactions, 
-					Home: "", 
-					Drives: [Collection`1]...
-				}, 
-				PSIsContainer: $True, 
-				SubKeyCount: 1, 
-				View: Default, 
-				Handle: {
-					IsInvalid: $False, 
-					IsClosed: $False
-				}, 
-				ValueCount: 9, 
-				Name: "HKEY_CURRENT_USER\Volatile Environment"
-			}
-13:00:51.74 My Object: @{
-				ID = "WriteLog", 
-				Name = "Write-Log", 
-				Folder = "C:\Users\User\PowerShell\Write-Log", 
-				Version = "01.00.02", 
-				Author = "Ronald Bode", 
-				Modified = "2017-05-31", 
-				Notes = " Author: Ronald Bode Version: 01.00.02 Created: 2009-03-18 Modified: 2017-05-31", 
-				File = {
-					PSPath: "Microsoft.PowerShell.Core\FileSystem::C:\Users\User\PowerShell", 
-					PSParentPath: "Microsoft.PowerShell.Core\FileSystem::C:\Users\User\PowerShell", 
-					PSChildName: "Write-Log.ps1", 
-					PSDrive: [PSDriveInfo]..., 
-					PSProvider: [ProviderInfo]..., 
-					PSIsContainer: $False, 
-					Mode: "-a----", 
-					VersionInfo: [FileVersionInfo]..., 
-					BaseName: "Write-Log", 
-					Target: [List`1]..., 
-					LinkType: $Null, 
-					Name: "Write-Log.ps1", 
-					Length: 7862, 
-					DirectoryName: "C:\Users\User\PowerShell\Write-Log", 
-					Directory: [DirectoryInfo]..., 
-					IsReadOnly: $False, 
-					Exists: $True, 
-					FullName: "C:\Users\User\PowerShell\Write-Log\Write-Log.ps1", 
-					Extension: ".ps1", 
-					CreationTime: 2017-05-08T14:23:12, 
-					CreationTimeUtc: 2017-05-08T12:23:12, 
-					LastAccessTime: 2017-05-08T14:23:12, 
-					LastAccessTimeUtc: 2017-05-08T12:23:12, 
-					LastWriteTime: 2017-05-31T13:00:45, 
-					LastWriteTimeUtc: 2017-05-31T11:00:45, 
-					Attributes: Archive
-				}, 
-				Title = "Write-Log", 
-				Arguments = "", 
-				Created = "2009-03-18", 
-				Description = " A PowerShell framework for sophisticated logging", 
-				Synopsis = " Write-Log", 
-				Path = "C:\Users\User\PowerShell\Write-Log\Write-Log.ps1", 
-				Contents = "<# .Synopsis Write-Log .Description A PowerShell framework for sophisticated log...", 
-				Help = ".Synopsis Write-Log .Description A PowerShell framework for sophisticated loggin..."
-			}
-13:00:51.75 End
+2017-06-11	Write-Log (version: 01.00.04, PowerShell version: 5.1.15063.296)
+16:53:59.27	C:\Users\user\Scripts\Write-Log\Write-Log.ps1 .\Write-Log.ps1
+20:36:06.99	Examples:
+20:36:07.00	Not set (null): $Null
+20:36:07.00	Empty string:
+20:36:07.01	If you want to quote a bare string, consider using CText: ""
+20:36:07.02	An empty array: @()
+20:36:07.03	An empty array embedded in another array: @() Note that PowerShell (and not Write-Log) flattens this.
+20:36:07.05	Two empty arrays embedded in another array: @(@(), @())
+20:36:07.06	An null in an empty array: @($Null)
+20:36:07.07	A hashtable: @{one = 1, three = 3, two = 2}
+20:36:07.08	A recursive hashtable: @{
+           		one = @{
+           			one = @{
+           				one = 1, 
+           				three = 3, 
+           				two = 2
+           			}, 
+           			three = 3, 
+           			two = 2
+           		}, 
+           		three = 3, 
+           		two = 2
+           	}
+20:36:07.09	The array @("One", "Two", "Three") is stored in $Numbers
+20:36:07.10	A hashtable in an array: @(@{one = 1, three = 3, two = 2})
+20:36:07.13	Character array: @(H, a, l, l, o,  , W, o, r, l, d)
+20:36:07.24	Volatile Environment: {
+           		Property: @(
+           			"LOGONSERVER", 
+           			"USERDOMAIN", 
+           			"USERNAME", 
+           			"USERPROFILE", 
+           			"HOMEPATH", 
+           			"HOMEDRIVE", 
+           			"APPDATA", 
+           			"LOCALAPPDATA", 
+           			"USERDOMAIN_ROAMINGPROFILE"
+           		), 
+           		PSPath: "Microsoft.PowerShell.Core\Registry::HKEY_CURRENT_USER\Volatile Environment", 
+           		PSParentPath: "Microsoft.PowerShell.Core\Registry::HKEY_CURRENT_USER", 
+           		PSChildName: "Volatile Environment", 
+           		PSDrive: {
+           			Used: $Null, 
+           			Free: $Null, 
+           			CurrentLocation: "", 
+           			Name: "HKCU", 
+           			Provider: [ProviderInfo]..., 
+           			Root: "HKEY_CURRENT_USER", 
+           			Description: "The software settings for the current user", 
+           			MaximumSize: $Null, 
+           			Credential: [PSCredential]..., 
+           			DisplayRoot: $Null
+           		}, 
+           		PSProvider: {
+           			ImplementingType: [RuntimeType]..., 
+           			HelpFile: "System.Management.Automation.dll-Help.xml", 
+           			Name: "Registry", 
+           			PSSnapIn: [PSSnapInInfo]..., 
+           			ModuleName: "Microsoft.PowerShell.Core", 
+           			Module: $Null, 
+           			Description: "", 
+           			Capabilities: ShouldProcess, Transactions, 
+           			Home: "", 
+           			Drives: [PSDriveInfo]]...
+           		}, 
+           		PSIsContainer: $True, 
+           		SubKeyCount: 1, 
+           		View: Default, 
+           		Handle: {
+           			IsInvalid: $False, 
+           			IsClosed: $False
+           		}, 
+           		ValueCount: 9, 
+           		Name: "HKEY_CURRENT_USER\Volatile Environment"
+           	}
+20:36:07.40	WinNT user object: {
+           		UserFlags: 66049, 
+           		MaxStorage: -1, 
+           		PasswordAge: 1223203, 
+           		PasswordExpired: 0, 
+           		LoginHours: 765, 
+           		FullName: John Doe, 
+           		Description: , 
+           		BadPasswordAttempts: 0, 
+           		HomeDirectory: , 
+           		LoginScript: , 
+           		Profile: , 
+           		HomeDirDrive: , 
+           		Parameters: , 
+           		PrimaryGroupID: 513, 
+           		Name: user, 
+           		MinPasswordLength: 0, 
+           		MaxPasswordAge: 3628800, 
+           		MinPasswordAge: 0, 
+           		PasswordHistoryLength: 0, 
+           		AutoUnlockInterval: 1800, 
+           		LockoutObservationInterval: 1800, 
+           		MaxBadPasswordsAllowed: 0, 
+           		objectSid: 6, 
+           		AuthenticationType: Secure, 
+           		Children: @{}, 
+           		Guid: "{D83F1060-ABCD-11CF-B1F3-02608C9E7553}", 
+           		ObjectSecurity: $Null, 
+           		NativeGuid: "{D83F1060-ABCD-11CF-B1F3-02608C9E7553}", 
+           		NativeObject: {}, 
+           		Parent: "WinNT://WORKGROUP/.", 
+           		Password: $Null, 
+           		Path: "WinNT://./user", 
+           		Properties: @{
+           			UserFlags = 66049, 
+           			MaxStorage = -1, 
+           			PasswordAge = 1223203, 
+           			PasswordExpired = 0, 
+           			LoginHours = 765, 
+           			FullName = John Doe, 
+           			Description = , 
+           			BadPasswordAttempts = 0, 
+           			HomeDirectory = , 
+           			LoginScript = , 
+           			Profile = , 
+           			HomeDirDrive = , 
+           			Parameters = , 
+           			PrimaryGroupID = 513, 
+           			Name = user, 
+           			MinPasswordLength = 0, 
+           			MaxPasswordAge = 3628800, 
+           			MinPasswordAge = 0, 
+           			PasswordHistoryLength = 0, 
+           			AutoUnlockInterval = 1800, 
+           			LockoutObservationInterval = 1800, 
+           			MaxBadPasswordsAllowed = 0, 
+           			objectSid = 6
+           		}, 
+           		SchemaClassName: "User", 
+           		SchemaEntry: {
+           			AuthenticationType: $Null, 
+           			Children: $Null, 
+           			Guid: $Null, 
+           			ObjectSecurity: $Null, 
+           			Name: $Null, 
+           			NativeGuid: $Null, 
+           			NativeObject: $Null, 
+           			Parent: $Null, 
+           			Password: $Null, 
+           			Path: $Null, 
+           			Properties: $Null, 
+           			SchemaClassName: $Null, 
+           			SchemaEntry: $Null, 
+           			UsePropertyCache: $Null, 
+           			Username: $Null, 
+           			Options: $Null, 
+           			Site: $Null, 
+           			Container: $Null
+           		}, 
+           		UsePropertyCache: $True, 
+           		Username: $Null, 
+           		Options: $Null, 
+           		Site: $Null, 
+           		Container: $Null
+           	}
+20:36:07.48	My Object: @{
+           		ID = "WriteLog", 
+           		Name = "Write-Log", 
+           		Folder = "C:\Users\user\Scripts\Write-Log", 
+           		Version = "01.00.04", 
+           		Author = "John Doe", 
+           		Modified = "2017-06-11", 
+           		Notes = " Author: John Doe Version: 01.00.04 Created: 2009-03-18 Modified: 2017-06-11", 
+           		File = {
+           			PSPath: "Microsoft.PowerShell.Core\FileSystem::C:\Users\user\Scripts\Write-Log\...", 
+           			PSParentPath: "Microsoft.PowerShell.Core\FileSystem::C:\Users\user\Scripts\Write-Log", 
+           			PSChildName: "Write-Log.ps1", 
+           			PSDrive: [PSDriveInfo]..., 
+           			PSProvider: [ProviderInfo]..., 
+           			PSIsContainer: $False, 
+           			Mode: "-a----", 
+           			VersionInfo: [FileVersionInfo]..., 
+           			BaseName: "Write-Log", 
+           			Target: [String]]..., 
+           			LinkType: $Null, 
+           			Name: "Write-Log.ps1", 
+           			Length: 7946, 
+           			DirectoryName: "C:\Users\user\Scripts\Write-Log", 
+           			Directory: [DirectoryInfo]..., 
+           			IsReadOnly: $False, 
+           			Exists: $True, 
+           			FullName: "C:\Users\user\Scripts\Write-Log\Write-Log.ps1", 
+           			Extension: ".ps1", 
+           			CreationTime: 2017-05-08T14:23:12, 
+           			CreationTimeUtc: 2017-05-08T12:23:12, 
+           			LastAccessTime: 2017-05-08T14:23:12, 
+           			LastAccessTimeUtc: 2017-05-08T12:23:12, 
+           			LastWriteTime: 2017-06-11T20:35:55, 
+           			LastWriteTimeUtc: 2017-06-11T18:35:55, 
+           			Attributes: Archive
+           		}, 
+           		Title = "Write-Log", 
+           		Arguments = ".\Write-Log.ps1", 
+           		Created = "2009-03-18", 
+           		Description = " A PowerShell framework for sophisticated logging", 
+           		Synopsis = " Write-Log", 
+           		Path = "C:\Users\user\Scripts\Write-Log\Write-Log.ps1", 
+           		Contents = "<# .Synopsis Write-Log .Description A PowerShell framework for sophisticated log...", 
+           		Help = ".Synopsis Write-Log .Description A PowerShell framework for sophisticated loggin..."
+           	}
+20:36:07.49	End
