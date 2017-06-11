@@ -2,15 +2,16 @@
 .Synopsis
 	Write-Log
 .Description
-	A PowerShell framework for sophisticated  logging
+	A PowerShell framework for sophisticated logging
 .Notes
 	Author:    Ronald Bode
-	Version:   01.00.02
+	Version:   01.00.04
 	Created:   2009-03-18
-	Modified:  2017-05-31
+	Modified:  2017-06-11
 #>
 
 Function Main {
+	Log -File .\Test.log				# Redirect the log file name and location (Optional)
 	Log -Color Yellow "Examples:"
 	Log "Not set (null):" $NotSet
 	Log "Empty string:" ""
@@ -24,28 +25,29 @@ Function Main {
 	$Numbers = Log "The array" @("One", "Two", "Three") ? "is stored in `$Numbers"
 	Log "A hashtable in an array:" @(@{one = 1; two = 2; three = 3})
 	Log "Character array:" "Hallo World".ToCharArray()
-	Log "WinNT user object:" ([ADSI]"WinNT://./$Env:Username")
 	Log "Volatile Environment:" (Get-Item "HKCU:\Volatile Environment") -Expand
+	Log "WinNT user object:" ([ADSI]"WinNT://./$Env:Username") -Depth 5 -Expand
 	Log "My Object:" $My -Expand
 }
 
 # ------------------------------------- Global --------------------------------
-Function Global:ConvertTo-Text([Alias("Variable")]$O, [Int]$Depth, [Switch]$Type, [Switch]$Expand, [Int]$Strip = -1, [String]$Prefix, [Int]$i) {
+Function Global:ConvertTo-Text([Alias("Value")]$O, [Int]$Depth, [Switch]$Type, [Switch]$Expand, [Int]$Strip = -1, [String]$Prefix, [Int]$i) {
 	Function Iterate($Value, [String]$Prefix, [Int]$i = $i + 1) {ConvertTo-Text $Value -Depth:$Depth -Strip:$Strip -Type:$Type -Expand:$Expand -Prefix:$Prefix -i:$i}
-	$n = @("`r`n")[!$Expand]; $s = @("`t" * $i)[!$Expand]
-	If ($O -eq $Null) {$V = '$Null'} Else {$T = If ($O.GetType.OverloadDefinitions) {$O.GetType().Name} Else {"$Var.PSTypeNames[0]".Split(".")[-1]}
+	$NewLine = @("`r`n")[!$Expand]; $Space = @("`t" * $i)[!$Expand]
+	If ($O -eq $Null) {$V = '$Null'} Else {
 		$V = If ($O -is "Boolean")  {"`$$O"}
 		ElseIf ($O -is "String") {If ($Strip -ge 0) {'"' + (($O -Replace "[\s]+", " ") -Replace "(?<=[\s\S]{$Strip})[\s\S]+", "...") + '"'} Else {"""$O"""}}
 		ElseIf ($O -is "DateTime") {$O.ToString("s")} 
-		ElseIf ($O -is "ValueType" -or ($O.Value.GetTypeCode -and $O.ToString.OverloadDefinitions)) {"$O"}
-		ElseIf ($O -is "Xml") {(@(Select-XML -XML $O *) -Join "$n$s") + $n}
+		ElseIf ($O -is "ValueType" -or ($O.Value.GetTypeCode -and $O.ToString.OverloadDefinitions)) {$O}
+		ElseIf ($O -is "Xml") {(@(Select-XML -XML $O *) -Join "$NewLine$Space") + $NewLine}
 		ElseIf ($i -gt $Depth) {$Type = $True; "..."}
 		ElseIf ($O -is "Array") {"@(", @(&{For ($_ = 0; $_ -lt $O.Count; $_++) {Iterate $O[$_]}}), ")"}
 		ElseIf ($O.GetEnumerator.OverloadDefinitions) {"@{", @(ForEach($_ in $O.Keys) {Iterate $O.$_ "$_ = "}), "}"}
 		ElseIf ($O.PSObject.Properties -and !$O.value.GetTypeCode) {"{", @(ForEach($_ in $O.PSObject.Properties | Select -Exp Name) {Iterate $O.$_ "$_`: "}), "}"}
 		Else {$Type = $True; "?"}}
-	"$s$Prefix" + @("[$T]")[!$Type] + $(If ($V -is "Array") {$V[0] + $(If ($V[1]) {$n + ($V[1] -Join ", $n") + "$n$s"} Else {""}) + $V[2]} Else {$V})
-}; Set-Alias CText ConvertTo-Text -Scope:Global -Description "Convert variable to readable text"
+	If ($Type) {$Prefix += "[" + $(Try {$O.GetType()} Catch {$Error.Remove($Error[0]); "$Var.PSTypeNames[0]"}).ToString().Split(".")[-1] + "]"}
+	"$Space$Prefix" + $(If ($V -is "Array") {$V[0] + $(If ($V[1]) {$NewLine + ($V[1] -Join ", $NewLine") + "$NewLine$Space"} Else {""}) + $V[2]} Else {$V})
+}; Set-Alias CText ConvertTo-Text -Scope:Global -Description "Convert value to readable text"
 
 # ------------------------------------- Logging -------------------------------
 Function Global:Write-Log {
@@ -65,13 +67,13 @@ Function Global:Write-Log {
 	If (!$Script:Log.ContainsKey("File") -or $Arguments.ContainsKey("File")) {
 		If ((Test-Path($File)) -And $Preserve) {
 			$Script:Log.Length = (Get-Item($File)).Length 
-			If ($Script:Log.Length -gt $Preserve) {									# Prevent the log file to grow indefinitely
+			If ($Script:Log.Length -gt $Preserve) {								# Prevent the log file to grow indefinitely
 				$Content = [String]::Join("`r`n", (Get-Content $File))
 				$Start = $Content.LastIndexOf("`r`n$Separator`r`n", $Script:Log.Length - $Preserve)
 				If ($Start -gt 0) {Set-Content $File $Content.SubString($Start + $Separator.Length + 4)}
 			}
 		}
-		If ($File.Length -gt 0) {Add-content $File $Separator}
+		If ($Log.Length -gt 0) {$Script:Log.Buffer += $Separator}
 		$StartTime = (Get-Process -id $PID).StartTime
 		$Script:Log.Buffer += ((Get-Date $StartTime -Format "yyyy-MM-dd") + "`t$($My.Name) (version: $($My.Version), PowerShell version: $($PSVersionTable.PSVersion))")
 		$Script:Log.Buffer += ((Get-Date $StartTime -Format "HH:mm:ss.ff") + "`t$($My.Path) $($My.Arguments)")
@@ -122,7 +124,5 @@ $MyInvocation.MyCommand.Parameters.Keys | Where {Test-Path Variable:"$_"} | ForE
 	If ($Value -is [IO.FileInfo]) {Set-Variable $_ -Value ([Environment]::ExpandEnvironmentVariables($Value))}
 }
 
-# Log -File $LogFile		# Redirect the log file name and location (Optional)
 Main
 Log "End"					# Log finish time and remaining errors (recommended)
-
