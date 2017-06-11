@@ -38,7 +38,7 @@ Function Global:ConvertTo-Text([Alias("Value")]$O, [Int]$Depth, [Switch]$Type, [
 		$V = If ($O -is "Boolean")  {"`$$O"}
 		ElseIf ($O -is "String") {If ($Strip -ge 0) {'"' + (($O -Replace "[\s]+", " ") -Replace "(?<=[\s\S]{$Strip})[\s\S]+", "...") + '"'} Else {"""$O"""}}
 		ElseIf ($O -is "DateTime") {$O.ToString("s")} 
-		ElseIf ($O -is "ValueType" -or ($O.Value.GetTypeCode -and $O.ToString.OverloadDefinitions)) {$O}
+		ElseIf ($O -is "ValueType" -or ($O.Value.GetTypeCode -and $O.ToString.OverloadDefinitions)) {$O.ToString()}
 		ElseIf ($O -is "Xml") {(@(Select-XML -XML $O *) -Join "$NewLine$Space") + $NewLine}
 		ElseIf ($i -gt $Depth) {$Type = $True; "..."}
 		ElseIf ($O -is "Array") {"@(", @(&{For ($_ = 0; $_ -lt $O.Count; $_++) {Iterate $O[$_]}}), ")"}
