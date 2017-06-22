@@ -5,9 +5,9 @@
 	A PowerShell framework for sophisticated logging
 .Notes
 	Author:    Ronald Bode
-	Version:   01.00.04
+	Version:   01.00.05
 	Created:   2009-03-18
-	Modified:  2017-06-11
+	Modified:  2017-06-22
 #>
 
 Function Main {
@@ -51,18 +51,19 @@ Function Global:ConvertTo-Text([Alias("Value")]$O, [Int]$Depth, [Switch]$Type, [
 
 # ------------------------------------- Logging -------------------------------
 Function Global:Write-Log {
+	[CmdletBinding(DefaultParameterSetName="0")]
 	Param(
 		$0, $1, $2, $3, $4, $5, $6, $7, $8, $9,									# PSv2 doesn't support PositionalBinding
 		[ConsoleColor]$Color, [String]$Delimiter = " ", [Int]$Indent = 0,
-		[io.FileInfo]$File = "$Env:Temp\$($My.Name).log",						# Set to "-File $Null" to disable file logging
+		[io.FileInfo]$File = "$Env:Temp\$($My.Name).log",						# Use "-File $Null" to disable file logging
 		[String]$Separator = "",												# Separator between sessions
 		[Int]$Preserve = 100e3,													# Size to preserve (0 = do not limit)
-		[Switch]$Prefix, [Switch]$Delay, [Switch]$Debug, [Switch]$Verbose,
+		[Switch]$Prefix, [Switch]$Delay,
 		[Int]$Depth = 1, [Int]$Strip = 80, [Switch]$Type, [Switch]$Expand
 	)
-	$Show = (&{If($Script:Debug) {$True} Else {!$Debug}}) -And (&{If($Script:Verbose) {$True} Else {!$Verbose}})
 	Function IsQ($Item) {If ($Item -is [String]) {$Item -eq "?"} Else {$False}}
-	$Arguments = $MyInvocation.BoundParameters; $Items = @()
+	$Show = (&{If($Script:Debug) {$True} Else {!$Debug}}) -And (&{If($Script:Verbose) {$True} Else {!$Verbose}})
+	$Arguments = $MyInvocation.BoundParameters
 	If (!$Script:Log) {$Script:Log = @{Items = @(); Buffer = @(); Error = 0}}
 	If (!$Script:Log.ContainsKey("File") -or $Arguments.ContainsKey("File")) {
 		If ((Test-Path($File)) -And $Preserve) {
@@ -113,9 +114,9 @@ If ($My.Contents -Match '^\s*\<#([\s\S]*?)#\>') {$My.Help = $Matches[1].Trim()}
 	$Caption = $_.Groups[2].ToString().Trim()
 	$Start = $_.Index + $_.Length
 }
-$My.Title = $My.Synopsis.Trim().Split("`r`n")[0].Trim()
+$My.Title = "$($My.Synopsis)".Trim().Split("`r`n")[0].Trim()
 $My.ID = (Get-Culture).TextInfo.ToTitleCase($My.Title) -Replace "\W", ""
-$My.Notes -Split("\r\n") | ForEach {$Note = $_ -Split(":", 2); If ($Note[0].Trim()) {$My[$Note[0].Trim()] = $Note[1].Trim()}}
+$My.Notes -Split("\r\n") | ForEach {$Key, $Value = $_ -Split(":", 2); If ("$Key".Trim()) {$My["$Key".Trim()] = "$Value".Trim()}}
 $My.Path = $My.File.FullName; $My.Folder = $My.File.DirectoryName; $My.Name = $My.File.BaseName
 $My.Arguments = (($MyInvocation.Line + " ") -Replace ("^.*\\" + $My.File.Name.Replace(".", "\.") + "['"" ]"), "").Trim()
 $Script:Debug = $MyInvocation.BoundParameters.Debug.IsPresent; $Script:Verbose = $MyInvocation.BoundParameters.Verbose.IsPresent
@@ -126,3 +127,4 @@ $MyInvocation.MyCommand.Parameters.Keys | Where {Test-Path Variable:"$_"} | ForE
 
 Main
 Log "End"					# Log finish time and remaining errors (recommended)
+
