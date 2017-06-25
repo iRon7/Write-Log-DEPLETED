@@ -2,8 +2,10 @@ Version 	Date      	Author      	Comments
 00.00.01	2009-03-18	Ronald Bode 	Initial release
 00.xx.xx	          	Ronald Bode 	Assiosated with other cmdlets
 01.00.00	2017-05-31	Ronald Bode 	Prepared for publication
-01.00.01	2017-05-31	Ronald Bode 	Minor modifications
+01.00.01	2017-05-31	Ronald Bode 	Added -Strip option for embedded strings
 01.00.02	2017-05-31	Ronald Bode 	First public release
 01.00.03	2017-06-11	Ronald Bode 	Fixed: separator not included when log is redirected
 01.00.04	2017-06-11	Ronald Bode 	Fixed: error with exotic value types
         	          	            	Fixed: value of system.byte is not shown
+01.00.05	2017-06-22	Ronald Bode 	Fixed: errors due to missing or incorrect help header
+01.00.06	2017-06-25	Ronald Bode 	Fixed Log-Debug/Verbose (CmdletBinding was missing)
