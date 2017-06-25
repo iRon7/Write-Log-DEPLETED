@@ -5,10 +5,14 @@
 	A PowerShell framework for sophisticated logging
 .Notes
 	Author:    Ronald Bode
-	Version:   01.00.05
+	Version:   01.00.06
 	Created:   2009-03-18
-	Modified:  2017-06-22
+	Modified:  2017-06-25
+.Link
+	https://github.com/iRon7/Write-Log
 #>
+
+[CmdletBinding()] Param()
 
 Function Main {
 	Log -File .\Test.log				# Redirect the log file name and location (Optional)
@@ -127,4 +131,3 @@ $MyInvocation.MyCommand.Parameters.Keys | Where {Test-Path Variable:"$_"} | ForE
 
 Main
 Log "End"					# Log finish time and remaining errors (recommended)
-
