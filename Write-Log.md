@@ -1,3 +1,7 @@
+*This repository is replaced by the new [`Log-Entry`](https://github.com/iRon7/Log-Entry) solution and will not be further updated. See also: [Migrating from Write-Log](https://github.com/iRon7/Log-Entry/blob/master/Migrating%20from%20Write-Log.md).*
+
+----------
+
 Personally, I find that logging is underestimated for Microsoft scripting languages. During the design and creation of a script (or cmdlet) logging comes in handy but when the script gets deployed and something goes wrong you often wish that you had an even better logging in place.  
 That is why I think that scripting languages as PowerShell (as well as its predecessor VBScript) should actually come with (better) native logging capabilities than what is available now.
 
