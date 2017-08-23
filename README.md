@@ -1,4 +1,4 @@
 # Write-Log
 Logging cmdlet framework for PowerShell  
 
-For detailes and examples see the Wiki or related [StackOverflow article](https://stackoverflow.com/questions/41860911/powershell-with-exchange-how-do-i-append-all-verbose-output-to-a-file/44265303#44265303).
+The `Write-Log` framework is depleted and replaced by the [`Log-Entry` framework](https://github.com/iRon7/Log-Entry)
